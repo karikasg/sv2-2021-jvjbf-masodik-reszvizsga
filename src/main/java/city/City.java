@@ -8,7 +8,6 @@ public class City {
     private long fullArea;
     private List<Building> buildings = new ArrayList<>();
 
-
     public City(String name, long fullArea) {
         this.name = name;
         this.fullArea = fullArea;
@@ -19,6 +18,38 @@ public class City {
             throw new IllegalArgumentException("City can't be larger than " + fullArea);
         }
         buildings.add(building);
+    }
+
+    public Building findHighestBuilding() {
+        if (buildings.size() > 0) {
+            Building highestBuilding = buildings.get(0);
+            for (Building building : buildings) {
+                if (building.getLevels() > highestBuilding.getLevels()) {
+                    highestBuilding = building;
+                }
+            }
+            return highestBuilding;
+        }
+        throw new IllegalStateException("There is no building in this town yet");
+    }
+
+    public List<Building> findBuildingsByStreet(String street) {
+        List<Building> result = new ArrayList<>();
+        for (Building building : buildings) {
+            if (building.getAddress().getStreet().equals(street)) {
+                result.add(building);
+            }
+        }
+        return result;
+    }
+
+    public boolean isThereBuildingWithMorePeopleThan(int numberOfPeople) {
+        for (Building building : buildings) {
+            if (building.calculateNumberOfPeopleCanFit()>numberOfPeople) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private long getCityArea() {
