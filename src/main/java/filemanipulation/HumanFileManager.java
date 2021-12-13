@@ -10,12 +10,8 @@ public class HumanFileManager {
 
     private List<Human> humans = new ArrayList<>();
 
-
-
     public void readHumansFromFile(Path path) {
-        String name;
-        String id;
-        List<String> input = new ArrayList<>();
+        List<String> input;
         try {
             input = Files.readAllLines(path);
         } catch (IOException ioe) {
